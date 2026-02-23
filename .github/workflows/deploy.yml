@@ -3,14 +3,14 @@ name: Deploy Vite React App
 on:
   push:
     branches:
-      - main
+      - main   # OR feature/bank-viewer-single-select
+
+permissions:
+  contents: write
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write   # ✅ THIS FIXES 403 ERROR
 
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Deploy
+      - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
